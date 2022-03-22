@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import axios from "axios";
+// import PersonList from "./components/PersonList.js";
 
 function App() {
-  const [currentTime, setCurrentTime] = useState(0);
+  const [post, setPost] = useState(0);
 
   useEffect(() => {
-    fetch("/api/time")
-      .then((res) => res.json())
-      .then((data) => {
-        setCurrentTime(data.time);
-      });
+    axios.get("/api/time").then((response) => {
+      setPost(response.data);
+      console.log(response);
+    });
   }, []);
 
   return (
@@ -28,7 +29,8 @@ function App() {
         >
           Learn React
         </a>
-        <p>The current time is {currentTime}.</p>
+        <p>The current time is {post.time}.</p>
+        {/* <PersonList /> */}
       </header>
     </div>
   );
